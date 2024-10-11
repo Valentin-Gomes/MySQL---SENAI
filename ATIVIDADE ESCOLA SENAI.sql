@@ -95,6 +95,44 @@ GROUP BY ca.id_campus
 ORDER BY qtd_curso DESC LIMIT 1;
 
  -- 12 Quais cursos não possuem alunos cadastrados?
+SELECT c.nome_curso, m.id_curso FROM curso AS c
+LEFT JOIN matricula AS m
+ON c.id_curso = m.id_curso
+WHERE m.id_curso IS NULL;
+
+ -- 13 Quem se matriculou em 2021?
+SELECT a.nome_aluno, m.dt_matricula FROM aluno AS a
+INNER JOIN matricula AS m
+ON a.ra_aluno = m.ra_aluno
+WHERE m.dt_matricula LIKE "%2021";
+
+ -- 14 Qual a data de matrícula da aluna “Fernanda Lima”?
+SELECT a.nome_aluno, m.dt_matricula FROM aluno AS a
+INNER JOIN matricula AS m
+ON a.ra_aluno = m.ra_aluno
+WHERE a.nome_aluno LIKE "Fernanda Lima";
+
+ -- 15 Quais alunos não se cadastraram em nenhum curso?
+SELECT a.ra_aluno, a.nome_aluno FROM aluno AS a
+LEFT JOIN matricula AS m
+ON a.ra_aluno = m.ra_aluno
+WHERE m.ra_aluno IS NULL;
+
+ -- 16 Quantas alunas matriculadas até o momento?
+SELECT a.nome_aluno, a.sexo FROM aluno AS a
+LEFT JOIN matricula AS m
+ON a.ra_aluno = m.ra_aluno
+WHERE a.sexo LIKE "F"
+GROUP BY a.nome_aluno;
+
+ -- 17 Quais alunos estão matriculados 3 cursos?
+SELECT a.nome_aluno, c.curso FROM aluno AS a
+INNER JOIN matricula AS m
+ON a.ra_aluno = m.ra_aluno
+INNER JOIN curso AS c;
+
+
+
 
 
 
